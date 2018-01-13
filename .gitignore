@@ -2,5 +2,6 @@
 *.swp
 *~
 .vscode
+/about.html
 /elm-stuff
 /node_modules
