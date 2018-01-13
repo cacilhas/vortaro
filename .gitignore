@@ -2,5 +2,4 @@
 *.swp
 *~
 .vscode
-/node_modules
-npm-*.log
+/elm-stuff
