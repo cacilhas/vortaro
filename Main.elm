@@ -98,11 +98,16 @@ pre content =
         style
             [ ("background-color", "white")
             , ("word-break", "break-word")
+            , ("word-wrap", "break-word")
+            , ("white-space", "pre-wrap")
+            , ("white-space", "-moz-pre-wrap")
+            , ("white-space", "-o-pre-wrap")
+            , ("white-space", "-pre-wrap")
             , ("overflow-y", "scroll")
             , ("border-style", "inset")
             , ("border-width", "medium")
-            , ("height", "20em")
-            , ("width", "100%")
+            , ("height", "25em")
+            , ("width", "128ex")
             ]
     in
         [text content] |> node "pre" [preStyle]
