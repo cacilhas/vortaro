@@ -76,7 +76,7 @@ update msg model =
 
 find : List String -> String -> String
 find wordbook query =
-    List.filter (\line -> String.contains query line) wordbook
+    List.filter (\line -> Regex.contains (Regex.regex query) line) wordbook
     |> String.join "\n\n"
     |> Regex.replace Regex.All (Regex.regex "\\t::") (\_ -> "\n")
 

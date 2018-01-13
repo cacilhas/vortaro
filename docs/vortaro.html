@@ -9213,7 +9213,10 @@ var _cacilhas$vortaro$Main$find = F2(
 				A2(
 					_elm_lang$core$List$filter,
 					function (line) {
-						return A2(_elm_lang$core$String$contains, query, line);
+						return A2(
+							_elm_lang$core$Regex$contains,
+							_elm_lang$core$Regex$regex(query),
+							line);
 					},
 					wordbook)));
 	});
