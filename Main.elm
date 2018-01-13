@@ -96,7 +96,8 @@ pre : String -> Html msg
 pre content =
     let preStyle =
         style
-            [ ("word-break", "break-word")
+            [ ("background-color", "white")
+            , ("word-break", "break-word")
             , ("overflow-y", "scroll")
             , ("border-style", "inset")
             , ("border-width", "medium")
