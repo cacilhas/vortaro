@@ -9204,10 +9204,12 @@ var _cacilhas$vortaro$Main$pre = function (content) {
 };
 var _cacilhas$vortaro$Main$find = F2(
 	function (wordbook, query) {
+		var tabsub = _elm_lang$core$Regex$regex('\\t::');
+		var rquery = _elm_lang$core$Regex$regex(query);
 		return A4(
 			_elm_lang$core$Regex$replace,
 			_elm_lang$core$Regex$All,
-			_elm_lang$core$Regex$regex('\\t::'),
+			tabsub,
 			function (_p0) {
 				return '\n';
 			},
@@ -9217,10 +9219,7 @@ var _cacilhas$vortaro$Main$find = F2(
 				A2(
 					_elm_lang$core$List$filter,
 					function (line) {
-						return A2(
-							_elm_lang$core$Regex$contains,
-							_elm_lang$core$Regex$regex(query),
-							line);
+						return A2(_elm_lang$core$Regex$contains, rquery, line);
 					},
 					wordbook)));
 	});

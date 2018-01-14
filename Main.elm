@@ -63,10 +63,13 @@ update msg model =
 
 find : List String -> String -> String
 find wordbook query =
-    wordbook
-    |> List.filter (\line -> Regex.contains (Regex.regex query) line)
-    |> String.join "\n\n"
-    |> Regex.replace Regex.All (Regex.regex "\\t::") (\_ -> "\n")
+    let rquery = Regex.regex query
+        tabsub = Regex.regex "\\t::"
+    in
+        wordbook
+        |> List.filter (\line -> Regex.contains rquery line)
+        |> String.join "\n\n"
+        |> Regex.replace Regex.All tabsub (\_ -> "\n")
 
 
 --------------------------------------------------------------------------------
