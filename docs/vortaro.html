@@ -9133,7 +9133,7 @@ var _elm_lang$core$Regex$AtMost = function (a) {
 	return {ctor: 'AtMost', _0: a};
 };
 var _elm_lang$core$Regex$All = {ctor: 'All'};
-var _cacilhas$vortaro$Main$pre = function (content) {
+var _cacilhas$vortaro$Main$display = function (content) {
 	var preStyle = _elm_lang$html$Html_Attributes$style(
 		{
 			ctor: '::',
@@ -9188,9 +9188,8 @@ var _cacilhas$vortaro$Main$pre = function (content) {
 				}
 			}
 		});
-	return A3(
-		_elm_lang$html$Html$node,
-		'pre',
+	return A2(
+		_elm_lang$html$Html$pre,
 		{
 			ctor: '::',
 			_0: preStyle,
@@ -9293,7 +9292,7 @@ var _cacilhas$vortaro$Main$view = function (model) {
 				{ctor: '[]'}),
 			_1: {
 				ctor: '::',
-				_0: _cacilhas$vortaro$Main$pre(model.content),
+				_0: _cacilhas$vortaro$Main$display(model.content),
 				_1: {ctor: '[]'}
 			}
 		});

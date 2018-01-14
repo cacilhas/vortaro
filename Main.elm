@@ -1,6 +1,6 @@
 module Main exposing (main)
 
-import Html exposing (Html, div, input, node, text)
+import Html exposing (Html, div, input, node, pre, text)
 import Html.Events exposing (onInput)
 import Html.Attributes exposing (placeholder, style)
 import Http
@@ -77,11 +77,11 @@ view : Model -> Html Msg
 view model =
     div []
         [ input [placeholder "Serĉu", onInput Query] []
-        , pre model.content
+        , display model.content
         ]
 
-pre : String -> Html msg
-pre content =
+display : String -> Html msg
+display content =
     let preStyle =
         style
             [ ("background-color", "white")
@@ -98,4 +98,4 @@ pre content =
             , ("height", "25em")
             , ("width", "128ex")
             ]
-    in [text content] |> node "pre" [preStyle]
+    in [text content] |> pre [preStyle]
