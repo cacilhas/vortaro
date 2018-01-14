@@ -76,7 +76,8 @@ update msg model =
 
 find : List String -> String -> String
 find wordbook query =
-    List.filter (\line -> Regex.contains (Regex.regex query) line) wordbook
+    wordbook
+    |> List.filter (\line -> Regex.contains (Regex.regex query) line)
     |> String.join "\n\n"
     |> Regex.replace Regex.All (Regex.regex "\\t::") (\_ -> "\n")
 
@@ -89,7 +90,7 @@ view : Model -> Html Msg
 view model =
     div []
         [ input [placeholder "Serĉu", onInput Query] []
-        , div [] [pre model.content]
+        , pre model.content
         ]
 
 pre : String -> Html msg
