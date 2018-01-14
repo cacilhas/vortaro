@@ -9203,20 +9203,26 @@ var _cacilhas$vortaro$Main$pre = function (content) {
 		});
 };
 var _cacilhas$vortaro$Main$find = F2(
-	function (wordbook, query) {
-		var rquery = _elm_lang$core$Regex$regex(query);
-		var filter_ = _elm_lang$core$Regex$contains(rquery);
-		return A4(
-			_elm_lang$core$Regex$replace,
-			_elm_lang$core$Regex$All,
-			_elm_lang$core$Regex$regex('\\t::'),
-			function (_p0) {
-				return '\n';
-			},
-			A2(
-				_elm_lang$core$String$join,
-				'\n\n',
-				A2(_elm_lang$core$List$filter, filter_, wordbook)));
+	function (query, wordbook) {
+		if (_elm_lang$core$Native_Utils.cmp(
+			_elm_lang$core$String$length(query),
+			1) > 0) {
+			var rquery = _elm_lang$core$Regex$regex(query);
+			var filter_ = _elm_lang$core$Regex$contains(rquery);
+			return A4(
+				_elm_lang$core$Regex$replace,
+				_elm_lang$core$Regex$All,
+				_elm_lang$core$Regex$regex('\\t::'),
+				function (_p0) {
+					return '\n';
+				},
+				A2(
+					_elm_lang$core$String$join,
+					'\n\n',
+					A2(_elm_lang$core$List$filter, filter_, wordbook)));
+		} else {
+			return '';
+		}
 	});
 var _cacilhas$vortaro$Main$update = F2(
 	function (msg, model) {
@@ -9229,9 +9235,7 @@ var _cacilhas$vortaro$Main$update = F2(
 					model,
 					{
 						query: _p2,
-						content: (_elm_lang$core$Native_Utils.cmp(
-							_elm_lang$core$String$length(_p2),
-							1) > 0) ? A2(_cacilhas$vortaro$Main$find, model.wordbook, _p2) : ''
+						content: A2(_cacilhas$vortaro$Main$find, _p2, model.wordbook)
 					}),
 				{ctor: '[]'});
 		} else {

@@ -46,14 +46,7 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Query query ->
-            { model
-            | query = query
-            , content =
-                if String.length query > 1
-                then find model.wordbook query
-                else ""
-            }
-            ! []
+            {model | query = query, content = find query model.wordbook} ! []
 
         Load (Ok data) ->
             {model | wordbook = String.split "\n" data} ! []
@@ -61,15 +54,19 @@ update msg model =
         Load (Err _) ->
             model ! []
 
-find : List String -> String -> String
-find wordbook query =
-    let rquery = Regex.regex query
-        filter_ = Regex.contains rquery
-    in
-        wordbook
-        |> List.filter filter_
-        |> String.join "\n\n"
-        |> Regex.replace Regex.All (Regex.regex "\\t::") (\_ -> "\n")
+find : String -> List String -> String
+find query wordbook =
+    if String.length query > 1
+    then
+        let rquery = Regex.regex query
+            filter_ = Regex.contains rquery
+        in
+            wordbook
+            |> List.filter filter_
+            |> String.join "\n\n"
+            |> Regex.replace Regex.All (Regex.regex "\\t::") (\_ -> "\n")
+
+    else ""
 
 
 --------------------------------------------------------------------------------
