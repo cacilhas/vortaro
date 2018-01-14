@@ -1,8 +1,8 @@
 module Main exposing (main)
 
-import Html exposing (..)
-import Html.Events exposing (..)
-import Html.Attributes exposing (..)
+import Html exposing (Html, div, input, node, text)
+import Html.Events exposing (onInput)
+import Html.Attributes exposing (placeholder, style)
 import Http
 import Regex
 
@@ -10,10 +10,10 @@ import Regex
 main : Program Never Model Msg
 main =
     Html.program
-        { init = init
+        { init = Model "" "" [] ! [loadWordbook]
         , view = view
         , update = update
-        , subscriptions = (\model -> Sub.none)
+        , subscriptions = \_ -> Sub.none
         }
 
 
@@ -26,16 +26,6 @@ type alias Model =
     , content : String
     , wordbook : List String
     }
-
-init : (Model, Cmd Msg)
-init =
-    (
-        { query = ""
-        , content = ""
-        , wordbook = []
-        },
-        loadWordbook
-    )
 
 loadWordbook : Cmd Msg
 loadWordbook =
@@ -56,23 +46,20 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Query query ->
-            (
-                { model
-                | query = query
-                , content =
-                    if String.length query > 1
-                    then find model.wordbook query
-                    else ""
-                },
-
-                Cmd.none
-            )
+            { model
+            | query = query
+            , content =
+                if String.length query > 1
+                then find model.wordbook query
+                else ""
+            }
+            ! []
 
         Load (Ok data) ->
-            ({model | wordbook = String.split "\n" data}, Cmd.none)
+            {model | wordbook = String.split "\n" data} ! []
 
         Load (Err _) ->
-            (model, Cmd.none)
+            model ! []
 
 find : List String -> String -> String
 find wordbook query =
@@ -111,5 +98,4 @@ pre content =
             , ("height", "25em")
             , ("width", "128ex")
             ]
-    in
-        [text content] |> node "pre" [preStyle]
+    in [text content] |> node "pre" [preStyle]

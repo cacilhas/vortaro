@@ -9229,9 +9229,9 @@ var _cacilhas$vortaro$Main$update = F2(
 		var _p1 = msg;
 		if (_p1.ctor === 'Query') {
 			var _p2 = _p1._0;
-			return {
-				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.update(
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Native_Utils.update(
 					model,
 					{
 						query: _p2,
@@ -9239,21 +9239,22 @@ var _cacilhas$vortaro$Main$update = F2(
 							_elm_lang$core$String$length(_p2),
 							1) > 0) ? A2(_cacilhas$vortaro$Main$find, model.wordbook, _p2) : ''
 					}),
-				_1: _elm_lang$core$Platform_Cmd$none
-			};
+				{ctor: '[]'});
 		} else {
 			if (_p1._0.ctor === 'Ok') {
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
 						model,
 						{
 							wordbook: A2(_elm_lang$core$String$split, '\n', _p1._0._0)
 						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
+					{ctor: '[]'});
 			} else {
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{ctor: '[]'});
 			}
 		}
 	});
@@ -9269,15 +9270,6 @@ var _cacilhas$vortaro$Main$loadWordbook = function () {
 	var request = _elm_lang$http$Http$getString(url);
 	return A2(_elm_lang$http$Http$send, _cacilhas$vortaro$Main$Load, request);
 }();
-var _cacilhas$vortaro$Main$init = {
-	ctor: '_Tuple2',
-	_0: {
-		query: '',
-		content: '',
-		wordbook: {ctor: '[]'}
-	},
-	_1: _cacilhas$vortaro$Main$loadWordbook
-};
 var _cacilhas$vortaro$Main$Query = function (a) {
 	return {ctor: 'Query', _0: a};
 };
@@ -9308,10 +9300,21 @@ var _cacilhas$vortaro$Main$view = function (model) {
 };
 var _cacilhas$vortaro$Main$main = _elm_lang$html$Html$program(
 	{
-		init: _cacilhas$vortaro$Main$init,
+		init: A2(
+			_elm_lang$core$Platform_Cmd_ops['!'],
+			A3(
+				_cacilhas$vortaro$Main$Model,
+				'',
+				'',
+				{ctor: '[]'}),
+			{
+				ctor: '::',
+				_0: _cacilhas$vortaro$Main$loadWordbook,
+				_1: {ctor: '[]'}
+			}),
 		view: _cacilhas$vortaro$Main$view,
 		update: _cacilhas$vortaro$Main$update,
-		subscriptions: function (model) {
+		subscriptions: function (_p3) {
 			return _elm_lang$core$Platform_Sub$none;
 		}
 	})();
