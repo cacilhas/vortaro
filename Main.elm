@@ -104,6 +104,7 @@ pre content =
             , ("white-space", "-moz-pre-wrap")
             , ("white-space", "-o-pre-wrap")
             , ("white-space", "-pre-wrap")
+            , ("overflow-x", "hidden")
             , ("overflow-y", "scroll")
             , ("border-style", "inset")
             , ("border-width", "medium")
