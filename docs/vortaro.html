@@ -9248,12 +9248,44 @@ var _cacilhas$vortaro$Main$update = F2(
 						}),
 					{ctor: '[]'});
 			} else {
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{content: 'ocorreu um erro'}),
-					{ctor: '[]'});
+				var _p3 = _p1._0._0;
+				switch (_p3.ctor) {
+					case 'BadPayload':
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{content: _p3._0}),
+							{ctor: '[]'});
+					case 'BadStatus':
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{content: _p3._0.status.message}),
+							{ctor: '[]'});
+					case 'BadUrl':
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{content: _p3._0}),
+							{ctor: '[]'});
+					case 'NetworkError':
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{content: 'rede indisponível'}),
+							{ctor: '[]'});
+					default:
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{content: 'requisição expirou'}),
+							{ctor: '[]'});
+				}
 			}
 		}
 	});
@@ -9313,7 +9345,7 @@ var _cacilhas$vortaro$Main$main = _elm_lang$html$Html$program(
 			}),
 		view: _cacilhas$vortaro$Main$view,
 		update: _cacilhas$vortaro$Main$update,
-		subscriptions: function (_p3) {
+		subscriptions: function (_p4) {
 			return _elm_lang$core$Platform_Sub$none;
 		}
 	})();

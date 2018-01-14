@@ -51,8 +51,22 @@ update msg model =
         Load (Ok data) ->
             {model | wordbook = String.split "\n" data} ! []
 
-        Load (Err _) ->
-            {model | content = "ocorreu um erro"} ! []
+        Load (Err err) ->
+            case err of
+                Http.BadPayload message res ->
+                    {model | content = message} ! []
+
+                Http.BadStatus res ->
+                    {model | content = res.status.message} ! []
+
+                Http.BadUrl message ->
+                    {model | content = message} ! []
+
+                Http.NetworkError ->
+                    {model | content = "rede indisponível"} ! []
+
+                Http.Timeout ->
+                    {model | content = "requisição expirou"} ! []
 
 find : String -> List String -> String
 find query wordbook =
