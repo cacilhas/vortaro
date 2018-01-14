@@ -33,6 +33,11 @@ O código todo está contido em
 divido nas seções definidas pela
 [arquitetura Elm](https://guide.elm-lang.org/architecture/).
 
+## Repositórios
+
+- [Versão *desktop*](https://bitbucket.org/cacilhas/konsulta-vortaro)
+- [Versão *on-line*](https://github.com/cacilhas/vortaro)
+
 ## Autor
 
 [ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας](http://cacilhas.info/montegasppa/author.html)
