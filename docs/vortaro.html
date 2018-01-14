@@ -9251,7 +9251,9 @@ var _cacilhas$vortaro$Main$update = F2(
 			} else {
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{content: 'ocorreu um erro'}),
 					{ctor: '[]'});
 			}
 		}

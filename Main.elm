@@ -52,7 +52,7 @@ update msg model =
             {model | wordbook = String.split "\n" data} ! []
 
         Load (Err _) ->
-            model ! []
+            {model | content = "ocorreu um erro"} ! []
 
 find : String -> List String -> String
 find query wordbook =
