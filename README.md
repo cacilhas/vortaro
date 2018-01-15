@@ -20,6 +20,11 @@ Mais tarde reescrevi em
 [MrEd Designer](https://docs.racket-lang.org/scheme/mred.html), que é a
 [versão oficial atual](https://bitbucket.org/cacilhas/konsulta-vortaro).
 
+## Código
+
+Você encontra o código atualizado
+[aqui](https://github.com/cacilhas/vortaro/blob/master/Main.elm).
+
 ## Versão *on-line*
 
 Como exercício de
