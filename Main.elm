@@ -53,7 +53,7 @@ update msg model =
             case model.wordbook of
                 [] -> { model
                       | query = query
-                      , content = showErrorMessage NoWordbook
+                      , content = showErrorMessage NoWordbook |> Just
                       } ! []
 
                 wordbook -> { model
@@ -65,7 +65,7 @@ update msg model =
             {model | wordbook = String.split "\n" data} ! []
 
         Load (Err err) ->
-            {model | content = showErrorMessage (HttpError err)} ! []
+            {model | content = showErrorMessage (HttpError err) |> Just} ! []
 
 
 find : String -> List String -> Maybe String
@@ -83,15 +83,15 @@ find query wordbook =
 
     else Nothing
 
-showErrorMessage : KnownErrors -> Maybe String
+showErrorMessage : KnownErrors -> String
 showErrorMessage errorType =
     case errorType of
-        HttpError (Http.BadPayload message _) -> Just message
-        HttpError (Http.BadStatus res) -> Just res.status.message
-        HttpError (Http.BadUrl message) -> Just message
-        HttpError Http.NetworkError -> Just "rede indisponível"
-        HttpError Http.Timeout -> Just "requisição expirou"
-        NoWordbook -> Just "dicionário não carregado"
+        HttpError (Http.BadPayload message _) -> message
+        HttpError (Http.BadStatus res) -> res.status.message
+        HttpError (Http.BadUrl message) -> message
+        HttpError Http.NetworkError -> "rede indisponível"
+        HttpError Http.Timeout -> "requisição expirou"
+        NoWordbook -> "dicionário não carregado"
 
 
 --------------------------------------------------------------------------------

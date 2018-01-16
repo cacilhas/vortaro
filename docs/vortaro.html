@@ -9216,18 +9216,18 @@ var _cacilhas$vortaro$Main$showErrorMessage = function (errorType) {
 	if (_p1.ctor === 'HttpError') {
 		switch (_p1._0.ctor) {
 			case 'BadPayload':
-				return _elm_lang$core$Maybe$Just(_p1._0._0);
+				return _p1._0._0;
 			case 'BadStatus':
-				return _elm_lang$core$Maybe$Just(_p1._0._0.status.message);
+				return _p1._0._0.status.message;
 			case 'BadUrl':
-				return _elm_lang$core$Maybe$Just(_p1._0._0);
+				return _p1._0._0;
 			case 'NetworkError':
-				return _elm_lang$core$Maybe$Just('rede indisponível');
+				return 'rede indisponível';
 			default:
-				return _elm_lang$core$Maybe$Just('requisição expirou');
+				return 'requisição expirou';
 		}
 	} else {
-		return _elm_lang$core$Maybe$Just('dicionário não carregado');
+		return 'dicionário não carregado';
 	}
 };
 var _cacilhas$vortaro$Main$find = F2(
@@ -9310,7 +9310,8 @@ var _cacilhas$vortaro$Main$update = F2(
 						model,
 						{
 							query: _p5,
-							content: _cacilhas$vortaro$Main$showErrorMessage(_cacilhas$vortaro$Main$NoWordbook)
+							content: _elm_lang$core$Maybe$Just(
+								_cacilhas$vortaro$Main$showErrorMessage(_cacilhas$vortaro$Main$NoWordbook))
 						}),
 					{ctor: '[]'});
 			} else {
@@ -9340,8 +9341,9 @@ var _cacilhas$vortaro$Main$update = F2(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							content: _cacilhas$vortaro$Main$showErrorMessage(
-								_cacilhas$vortaro$Main$HttpError(_p3._0._0))
+							content: _elm_lang$core$Maybe$Just(
+								_cacilhas$vortaro$Main$showErrorMessage(
+									_cacilhas$vortaro$Main$HttpError(_p3._0._0)))
 						}),
 					{ctor: '[]'});
 			}
