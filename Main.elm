@@ -67,7 +67,7 @@ update msg model =
 
                 _ -> { model
                      | query = query
-                     , content = find query model.wordbook |> Just
+                     , content = find query model.wordbook
                      } ! []
 
         Load (Ok data) ->
@@ -90,7 +90,7 @@ update msg model =
                 Http.Timeout ->
                     {model | content = errorMessages.timeout} ! []
 
-find : String -> List String -> String
+find : String -> List String -> Maybe String
 find query wordbook =
     if String.length query > 1
     then
@@ -101,8 +101,9 @@ find query wordbook =
             |> List.filter filter_
             |> String.join "\n\n"
             |> Regex.replace Regex.All (Regex.regex "\\t::") (\_ -> "\n")
+            |> Just
 
-    else ""
+    else Nothing
 
 
 --------------------------------------------------------------------------------
