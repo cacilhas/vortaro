@@ -53,7 +53,7 @@ update msg model =
 
         Load (Err err) ->
             case err of
-                Http.BadPayload message res ->
+                Http.BadPayload message _ ->
                     {model | content = message} ! []
 
                 Http.BadStatus res ->
