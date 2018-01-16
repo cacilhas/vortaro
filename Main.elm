@@ -46,9 +46,16 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Query query ->
-            { model
-            | query = query, content = find query model.wordbook |> Just
-            } ! []
+            case model.wordbook of
+                [] -> { model
+                      | query = query
+                      , content = Just "dicionário não carregado"
+                      } ! []
+
+                _ -> { model
+                     | query = query
+                     , content = find query model.wordbook |> Just
+                     } ! []
 
         Load (Ok data) ->
             {model | wordbook = String.split "\n" data} ! []

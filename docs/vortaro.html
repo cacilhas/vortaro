@@ -9237,17 +9237,30 @@ var _cacilhas$vortaro$Main$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
 		if (_p2.ctor === 'Query') {
-			var _p3 = _p2._0;
-			return A2(
-				_elm_lang$core$Platform_Cmd_ops['!'],
-				_elm_lang$core$Native_Utils.update(
-					model,
-					{
-						query: _p3,
-						content: _elm_lang$core$Maybe$Just(
-							A2(_cacilhas$vortaro$Main$find, _p3, model.wordbook))
-					}),
-				{ctor: '[]'});
+			var _p4 = _p2._0;
+			var _p3 = model.wordbook;
+			if (_p3.ctor === '[]') {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							query: _p4,
+							content: _elm_lang$core$Maybe$Just('dicionário não carregado')
+						}),
+					{ctor: '[]'});
+			} else {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							query: _p4,
+							content: _elm_lang$core$Maybe$Just(
+								A2(_cacilhas$vortaro$Main$find, _p4, model.wordbook))
+						}),
+					{ctor: '[]'});
+			}
 		} else {
 			if (_p2._0.ctor === 'Ok') {
 				return A2(
@@ -9259,15 +9272,15 @@ var _cacilhas$vortaro$Main$update = F2(
 						}),
 					{ctor: '[]'});
 			} else {
-				var _p4 = _p2._0._0;
-				switch (_p4.ctor) {
+				var _p5 = _p2._0._0;
+				switch (_p5.ctor) {
 					case 'BadPayload':
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
 								model,
 								{
-									content: _elm_lang$core$Maybe$Just(_p4._0)
+									content: _elm_lang$core$Maybe$Just(_p5._0)
 								}),
 							{ctor: '[]'});
 					case 'BadStatus':
@@ -9276,7 +9289,7 @@ var _cacilhas$vortaro$Main$update = F2(
 							_elm_lang$core$Native_Utils.update(
 								model,
 								{
-									content: _elm_lang$core$Maybe$Just(_p4._0.status.message)
+									content: _elm_lang$core$Maybe$Just(_p5._0.status.message)
 								}),
 							{ctor: '[]'});
 					case 'BadUrl':
@@ -9285,7 +9298,7 @@ var _cacilhas$vortaro$Main$update = F2(
 							_elm_lang$core$Native_Utils.update(
 								model,
 								{
-									content: _elm_lang$core$Maybe$Just(_p4._0)
+									content: _elm_lang$core$Maybe$Just(_p5._0)
 								}),
 							{ctor: '[]'});
 					case 'NetworkError':
@@ -9366,7 +9379,7 @@ var _cacilhas$vortaro$Main$main = _elm_lang$html$Html$program(
 			}),
 		view: _cacilhas$vortaro$Main$view,
 		update: _cacilhas$vortaro$Main$update,
-		subscriptions: function (_p5) {
+		subscriptions: function (_p6) {
 			return _elm_lang$core$Platform_Sub$none;
 		}
 	})();
