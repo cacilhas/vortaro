@@ -138,5 +138,5 @@ display content =
         render = pre [preStyle]
 
     in case content of
-        Just value -> [text value] |> render
-        Nothing -> [text ""] |> render
+        Just value -> render [text value]
+        Nothing ->    render [text ""]
