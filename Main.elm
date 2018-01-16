@@ -42,6 +42,19 @@ type Msg
     = Query String
     | Load (Result Http.Error String)
 
+type alias ErrorMessages =
+    { noWordbook : Maybe String
+    , networkError : Maybe String
+    , timeout : Maybe String
+    }
+
+errorMessages : ErrorMessages
+errorMessages =
+    { noWordbook = Just "dicionário não carregado"
+    , networkError = Just "rede indisponível"
+    , timeout = Just "requisição expirou"
+    }
+
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
@@ -49,7 +62,7 @@ update msg model =
             case model.wordbook of
                 [] -> { model
                       | query = query
-                      , content = Just "dicionário não carregado"
+                      , content = errorMessages.noWordbook
                       } ! []
 
                 _ -> { model
@@ -72,10 +85,10 @@ update msg model =
                     {model | content = Just message} ! []
 
                 Http.NetworkError ->
-                    {model | content = Just "rede indisponível"} ! []
+                    {model | content = errorMessages.networkError} ! []
 
                 Http.Timeout ->
-                    {model | content = Just "requisição expirou"} ! []
+                    {model | content = errorMessages.timeout} ! []
 
 find : String -> List String -> String
 find query wordbook =

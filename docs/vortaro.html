@@ -9233,6 +9233,11 @@ var _cacilhas$vortaro$Main$find = F2(
 			return '';
 		}
 	});
+var _cacilhas$vortaro$Main$errorMessages = {
+	noWordbook: _elm_lang$core$Maybe$Just('dicionário não carregado'),
+	networkError: _elm_lang$core$Maybe$Just('rede indisponível'),
+	timeout: _elm_lang$core$Maybe$Just('requisição expirou')
+};
 var _cacilhas$vortaro$Main$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
@@ -9244,10 +9249,7 @@ var _cacilhas$vortaro$Main$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{
-							query: _p4,
-							content: _elm_lang$core$Maybe$Just('dicionário não carregado')
-						}),
+						{query: _p4, content: _cacilhas$vortaro$Main$errorMessages.noWordbook}),
 					{ctor: '[]'});
 			} else {
 				return A2(
@@ -9306,18 +9308,14 @@ var _cacilhas$vortaro$Main$update = F2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
 								model,
-								{
-									content: _elm_lang$core$Maybe$Just('rede indisponível')
-								}),
+								{content: _cacilhas$vortaro$Main$errorMessages.networkError}),
 							{ctor: '[]'});
 					default:
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
 								model,
-								{
-									content: _elm_lang$core$Maybe$Just('requisição expirou')
-								}),
+								{content: _cacilhas$vortaro$Main$errorMessages.timeout}),
 							{ctor: '[]'});
 				}
 			}
@@ -9326,6 +9324,10 @@ var _cacilhas$vortaro$Main$update = F2(
 var _cacilhas$vortaro$Main$Model = F3(
 	function (a, b, c) {
 		return {query: a, content: b, wordbook: c};
+	});
+var _cacilhas$vortaro$Main$ErrorMessages = F3(
+	function (a, b, c) {
+		return {noWordbook: a, networkError: b, timeout: c};
 	});
 var _cacilhas$vortaro$Main$Load = function (a) {
 	return {ctor: 'Load', _0: a};
