@@ -22,7 +22,7 @@ Mais tarde reescrevi em
 
 ## Código
 
-Você encontra o código atualizado
+Você encontra o código da versão *on-line* atualizado
 [aqui](https://github.com/cacilhas/vortaro/blob/master/Main.elm).
 
 ## Versão *on-line*
@@ -33,10 +33,9 @@ escrever uma versão *on-line* do dicionário usando
 [Elm](http://elm-lang.org/), um linguagem da família que compila para
 Javascript.
 
-O código todo está contido em
-[apenas um arquivo](https://github.com/cacilhas/vortaro/blob/master/Main.elm),
-divido nas seções definidas pela
-[arquitetura Elm](https://guide.elm-lang.org/architecture/).
+O código todo está contido em apenas um arquivo, divido nas seções definidas
+pela [arquitetura Elm](https://guide.elm-lang.org/architecture/). Você pode
+entender esssa seções como camadas ou aspectos.
 
 ## Repositórios
 
