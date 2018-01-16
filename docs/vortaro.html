@@ -9211,6 +9211,25 @@ var _cacilhas$vortaro$Main$display = function (content) {
 			});
 	}
 };
+var _cacilhas$vortaro$Main$showErrorMessage = function (errorType) {
+	var _p1 = errorType;
+	if (_p1.ctor === 'HttpError') {
+		switch (_p1._0.ctor) {
+			case 'BadPayload':
+				return _elm_lang$core$Maybe$Just(_p1._0._0);
+			case 'BadStatus':
+				return _elm_lang$core$Maybe$Just(_p1._0._0.status.message);
+			case 'BadUrl':
+				return _elm_lang$core$Maybe$Just(_p1._0._0);
+			case 'NetworkError':
+				return _elm_lang$core$Maybe$Just('rede indisponível');
+			default:
+				return _elm_lang$core$Maybe$Just('requisição expirou');
+		}
+	} else {
+		return _elm_lang$core$Maybe$Just('dicionário não carregado');
+	}
+};
 var _cacilhas$vortaro$Main$find = F2(
 	function (query, wordbook) {
 		if (_elm_lang$core$Native_Utils.cmp(
@@ -9223,7 +9242,7 @@ var _cacilhas$vortaro$Main$find = F2(
 					_elm_lang$core$Regex$replace,
 					_elm_lang$core$Regex$All,
 					_elm_lang$core$Regex$regex('\\t::'),
-					function (_p1) {
+					function (_p2) {
 						return '\n';
 					},
 					A2(
@@ -9234,32 +9253,9 @@ var _cacilhas$vortaro$Main$find = F2(
 			return _elm_lang$core$Maybe$Nothing;
 		}
 	});
-var _cacilhas$vortaro$Main$showErrorMessage = function (errorType) {
-	var _p2 = errorType;
-	if (_p2.ctor === 'HttpError') {
-		switch (_p2._0.ctor) {
-			case 'BadPayload':
-				return _elm_lang$core$Maybe$Just(_p2._0._0);
-			case 'BadStatus':
-				return _elm_lang$core$Maybe$Just(_p2._0._0.status.message);
-			case 'BadUrl':
-				return _elm_lang$core$Maybe$Just(_p2._0._0);
-			case 'NetworkError':
-				return _elm_lang$core$Maybe$Just('rede indisponível');
-			default:
-				return _elm_lang$core$Maybe$Just('requisição expirou');
-		}
-	} else {
-		return _elm_lang$core$Maybe$Just('dicionário não carregado');
-	}
-};
 var _cacilhas$vortaro$Main$Model = F3(
 	function (a, b, c) {
 		return {query: a, content: b, wordbook: c};
-	});
-var _cacilhas$vortaro$Main$ErrorMessages = F3(
-	function (a, b, c) {
-		return {noWordbook: a, networkError: b, timeout: c};
 	});
 var _cacilhas$vortaro$Main$Load = function (a) {
 	return {ctor: 'Load', _0: a};
@@ -9324,7 +9320,7 @@ var _cacilhas$vortaro$Main$update = F2(
 						model,
 						{
 							query: _p5,
-							content: A2(_cacilhas$vortaro$Main$find, _p5, model.wordbook)
+							content: A2(_cacilhas$vortaro$Main$find, _p5, _p4)
 						}),
 					{ctor: '[]'});
 			}
