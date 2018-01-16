@@ -10,7 +10,7 @@ import Regex
 main : Program Never Model Msg
 main =
     Html.program
-        { init = Model "" "" [] ! [loadWordbook]
+        { init = Model "" Nothing [] ! [loadWordbook]
         , view = view
         , update = update
         , subscriptions = \_ -> Sub.none
@@ -23,7 +23,7 @@ main =
 
 type alias Model =
     { query : String
-    , content : String
+    , content : Maybe String
     , wordbook : List String
     }
 
@@ -46,7 +46,9 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Query query ->
-            {model | query = query, content = find query model.wordbook} ! []
+            { model
+            | query = query, content = find query model.wordbook |> Just
+            } ! []
 
         Load (Ok data) ->
             {model | wordbook = String.split "\n" data} ! []
@@ -54,19 +56,19 @@ update msg model =
         Load (Err err) ->
             case err of
                 Http.BadPayload message _ ->
-                    {model | content = message} ! []
+                    {model | content = Just message} ! []
 
                 Http.BadStatus res ->
-                    {model | content = res.status.message} ! []
+                    {model | content = Just res.status.message} ! []
 
                 Http.BadUrl message ->
-                    {model | content = message} ! []
+                    {model | content = Just message} ! []
 
                 Http.NetworkError ->
-                    {model | content = "rede indisponível"} ! []
+                    {model | content = Just "rede indisponível"} ! []
 
                 Http.Timeout ->
-                    {model | content = "requisição expirou"} ! []
+                    {model | content = Just "requisição expirou"} ! []
 
 find : String -> List String -> String
 find query wordbook =
@@ -94,7 +96,7 @@ view model =
         , display model.content
         ]
 
-display : String -> Html msg
+display : Maybe String -> Html msg
 display content =
     let preStyle =
         style
@@ -112,4 +114,8 @@ display content =
             , ("height", "25em")
             , ("width", "128ex")
             ]
-    in [text content] |> pre [preStyle]
+        render = pre [preStyle]
+
+    in case content of
+        Just value -> [text value] |> render
+        Nothing -> [text ""] |> render
