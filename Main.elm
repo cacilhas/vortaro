@@ -48,12 +48,19 @@ type alias ErrorMessages =
     , timeout : Maybe String
     }
 
-errorMessages : ErrorMessages
-errorMessages =
-    { noWordbook = Just "dicionário não carregado"
-    , networkError = Just "rede indisponível"
-    , timeout = Just "requisição expirou"
-    }
+type KnownErrors
+    = NoWordbook
+    | HttpError Http.Error
+
+showErrorMessage : KnownErrors -> Maybe String
+showErrorMessage errorType =
+    case errorType of
+        HttpError (Http.BadPayload message _) -> Just message
+        HttpError (Http.BadStatus res) -> Just res.status.message
+        HttpError (Http.BadUrl message) -> Just message
+        HttpError Http.NetworkError -> Just "rede indisponível"
+        HttpError Http.Timeout -> Just "requisição expirou"
+        NoWordbook -> Just "dicionário não carregado"
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -62,7 +69,7 @@ update msg model =
             case model.wordbook of
                 [] -> { model
                       | query = query
-                      , content = errorMessages.noWordbook
+                      , content = showErrorMessage NoWordbook
                       } ! []
 
                 _ -> { model
@@ -74,21 +81,8 @@ update msg model =
             {model | wordbook = String.split "\n" data} ! []
 
         Load (Err err) ->
-            case err of
-                Http.BadPayload message _ ->
-                    {model | content = Just message} ! []
+            {model | content = showErrorMessage (HttpError err)} ! []
 
-                Http.BadStatus res ->
-                    {model | content = Just res.status.message} ! []
-
-                Http.BadUrl message ->
-                    {model | content = Just message} ! []
-
-                Http.NetworkError ->
-                    {model | content = errorMessages.networkError} ! []
-
-                Http.Timeout ->
-                    {model | content = errorMessages.timeout} ! []
 
 find : String -> List String -> Maybe String
 find query wordbook =

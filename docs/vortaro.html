@@ -9234,93 +9234,25 @@ var _cacilhas$vortaro$Main$find = F2(
 			return _elm_lang$core$Maybe$Nothing;
 		}
 	});
-var _cacilhas$vortaro$Main$errorMessages = {
-	noWordbook: _elm_lang$core$Maybe$Just('dicionário não carregado'),
-	networkError: _elm_lang$core$Maybe$Just('rede indisponível'),
-	timeout: _elm_lang$core$Maybe$Just('requisição expirou')
-};
-var _cacilhas$vortaro$Main$update = F2(
-	function (msg, model) {
-		var _p2 = msg;
-		if (_p2.ctor === 'Query') {
-			var _p4 = _p2._0;
-			var _p3 = model.wordbook;
-			if (_p3.ctor === '[]') {
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{query: _p4, content: _cacilhas$vortaro$Main$errorMessages.noWordbook}),
-					{ctor: '[]'});
-			} else {
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{
-							query: _p4,
-							content: A2(_cacilhas$vortaro$Main$find, _p4, model.wordbook)
-						}),
-					{ctor: '[]'});
-			}
-		} else {
-			if (_p2._0.ctor === 'Ok') {
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{
-							wordbook: A2(_elm_lang$core$String$split, '\n', _p2._0._0)
-						}),
-					{ctor: '[]'});
-			} else {
-				var _p5 = _p2._0._0;
-				switch (_p5.ctor) {
-					case 'BadPayload':
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{
-									content: _elm_lang$core$Maybe$Just(_p5._0)
-								}),
-							{ctor: '[]'});
-					case 'BadStatus':
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{
-									content: _elm_lang$core$Maybe$Just(_p5._0.status.message)
-								}),
-							{ctor: '[]'});
-					case 'BadUrl':
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{
-									content: _elm_lang$core$Maybe$Just(_p5._0)
-								}),
-							{ctor: '[]'});
-					case 'NetworkError':
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{content: _cacilhas$vortaro$Main$errorMessages.networkError}),
-							{ctor: '[]'});
-					default:
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{content: _cacilhas$vortaro$Main$errorMessages.timeout}),
-							{ctor: '[]'});
-				}
-			}
+var _cacilhas$vortaro$Main$showErrorMessage = function (errorType) {
+	var _p2 = errorType;
+	if (_p2.ctor === 'HttpError') {
+		switch (_p2._0.ctor) {
+			case 'BadPayload':
+				return _elm_lang$core$Maybe$Just(_p2._0._0);
+			case 'BadStatus':
+				return _elm_lang$core$Maybe$Just(_p2._0._0.status.message);
+			case 'BadUrl':
+				return _elm_lang$core$Maybe$Just(_p2._0._0);
+			case 'NetworkError':
+				return _elm_lang$core$Maybe$Just('rede indisponível');
+			default:
+				return _elm_lang$core$Maybe$Just('requisição expirou');
 		}
-	});
+	} else {
+		return _elm_lang$core$Maybe$Just('dicionário não carregado');
+	}
+};
 var _cacilhas$vortaro$Main$Model = F3(
 	function (a, b, c) {
 		return {query: a, content: b, wordbook: c};
@@ -9365,6 +9297,60 @@ var _cacilhas$vortaro$Main$view = function (model) {
 			}
 		});
 };
+var _cacilhas$vortaro$Main$HttpError = function (a) {
+	return {ctor: 'HttpError', _0: a};
+};
+var _cacilhas$vortaro$Main$NoWordbook = {ctor: 'NoWordbook'};
+var _cacilhas$vortaro$Main$update = F2(
+	function (msg, model) {
+		var _p3 = msg;
+		if (_p3.ctor === 'Query') {
+			var _p5 = _p3._0;
+			var _p4 = model.wordbook;
+			if (_p4.ctor === '[]') {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							query: _p5,
+							content: _cacilhas$vortaro$Main$showErrorMessage(_cacilhas$vortaro$Main$NoWordbook)
+						}),
+					{ctor: '[]'});
+			} else {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							query: _p5,
+							content: A2(_cacilhas$vortaro$Main$find, _p5, model.wordbook)
+						}),
+					{ctor: '[]'});
+			}
+		} else {
+			if (_p3._0.ctor === 'Ok') {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							wordbook: A2(_elm_lang$core$String$split, '\n', _p3._0._0)
+						}),
+					{ctor: '[]'});
+			} else {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							content: _cacilhas$vortaro$Main$showErrorMessage(
+								_cacilhas$vortaro$Main$HttpError(_p3._0._0))
+						}),
+					{ctor: '[]'});
+			}
+		}
+	});
 var _cacilhas$vortaro$Main$main = _elm_lang$html$Html$program(
 	{
 		init: A2(
