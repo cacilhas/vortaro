@@ -9235,13 +9235,14 @@ var _cacilhas$vortaro$Main$find = F2(
 		if (_elm_lang$core$Native_Utils.cmp(
 			_elm_lang$core$String$length(query),
 			1) > 0) {
+			var sep = _elm_lang$core$Regex$regex('\\t::');
 			var rquery = _elm_lang$core$Regex$regex(query);
 			var filter_ = _elm_lang$core$Regex$contains(rquery);
 			return _elm_lang$core$Maybe$Just(
 				A4(
 					_elm_lang$core$Regex$replace,
 					_elm_lang$core$Regex$All,
-					_elm_lang$core$Regex$regex('\\t::'),
+					sep,
 					function (_p2) {
 						return '\n';
 					},

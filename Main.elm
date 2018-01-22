@@ -65,7 +65,7 @@ update msg model =
             {model | wordbook = String.split "\n" data} ! []
 
         Load (Err err) ->
-            {model | content = showErrorMessage (HttpError err) |> Just} ! []
+            {model | content = HttpError err |> showErrorMessage |> Just} ! []
 
 
 find : String -> List String -> Maybe String
@@ -74,11 +74,12 @@ find query wordbook =
     then
         let rquery = Regex.regex query
             filter_ = Regex.contains rquery
+            sep = Regex.regex "\\t::"
         in
             wordbook
             |> List.filter filter_
             |> String.join "\n\n"
-            |> Regex.replace Regex.All (Regex.regex "\\t::") (\_ -> "\n")
+            |> Regex.replace Regex.All sep (\_ -> "\n")
             |> Just
 
     else Nothing
