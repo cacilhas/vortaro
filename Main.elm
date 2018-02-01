@@ -128,4 +128,4 @@ display content =
 
     in case content of
         Just value -> render [text value]
-        Nothing ->    render [text ""]
+        Nothing    -> render [text ""]
