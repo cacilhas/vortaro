@@ -37,7 +37,7 @@ docs/vortaro.html: Main.elm docs
 docs/index.html: $(INDEX) docs about.html
 	$(PUG) > $@
 
-docs/vortaro.text: vortaro.text
+docs/vortaro.text: vortaro.text docs
 	$(CP) $< $@
 
 docs:
