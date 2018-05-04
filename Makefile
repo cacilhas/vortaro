@@ -1,16 +1,16 @@
 INDEX= index.pug
 README= README.md
 PUG_STRING= const fs = require("fs"); \
-            const pug = require("pug"); \
-            const filename = "$(INDEX)"; \
-			const template = fs.readFileSync(filename); \
-			console.log(pug.compile(template, {filename})({}));
+	const pug = require("pug"); \
+	const filename = "$(INDEX)"; \
+	const template = fs.readFileSync(filename); \
+	console.log(pug.compile(template, {filename})({}));
 
 MD_STRING= const fs = require("fs"); \
-           const {markdown} = require("markdown"); \
-           const filename = "$(README)"; \
-		   const template = fs.readFileSync(filename); \
-		   console.log(markdown.toHTML(template.toString()));
+	const {markdown} = require("markdown"); \
+	const filename = "$(README)"; \
+	const template = fs.readFileSync(filename); \
+	console.log(markdown.toHTML(template.toString()));
 
 ELMC= elm make
 PUG= node -e '$(PUG_STRING)'
