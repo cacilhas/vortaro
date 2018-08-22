@@ -23,7 +23,8 @@ CP= cp -f
 #-------------------------------------------------------------------------------
 .PHONY: clean
 
-all: docs/vortaro.html docs/index.html docs/vortaro.text
+all: docs/vortaro.html docs/index.html docs/vortaro.text \
+	docs/css/vortaro.css docs/css/ie10-viewport-bug-workaround.css
 
 clean:
 	$(RM) docs about.html
@@ -39,6 +40,12 @@ docs/index.html: $(INDEX) docs about.html
 
 docs/vortaro.text: vortaro.text docs
 	$(CP) $< $@
+
+docs/css/%: css/% docs/css
+	$(CP) $< $@
+
+docs/css: docs
+	$(MD) $@
 
 docs:
 	$(MD) $@
