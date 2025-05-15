@@ -1,6 +1,6 @@
 # Konsulta Vortaro
 
-![logo](http://cacilhas.info/misc/vortaro.png)
+![logo](http://cacilhas.cc/misc/vortaro.png)
 
 ## Introdução
 
@@ -44,4 +44,4 @@ entender esssa seções como camadas ou aspectos.
 
 ## Autor
 
-[ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας](http://montegasppa.cacilhas.info/author.html)
+[ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας](http://montegasppa.cacilhas.cc/author.html)
