@@ -18,7 +18,7 @@ Mais tarde reescrevi em
 [Objective-C para GNUstep](http://www.gnustep.org/) e depois finalmente em
 [Racket](http://racket-lang.org/), usando
 [MrEd Designer](https://docs.racket-lang.org/scheme/mred.html), que é a
-[versão oficial atual](https://github.com/cacilhas/konsulta-vortaro).
+[versão oficial atual](https://codeberg.org/cacilhas/konsulta-vortaro).
 
 ## Código
 
@@ -39,7 +39,7 @@ entender esssa seções como camadas ou aspectos.
 
 ## Repositórios
 
-- [Versão *desktop*](https://github.com/cacilhas/konsulta-vortaro)
+- [Versão *desktop*](https://codeberg.org/cacilhas/konsulta-vortaro)
 - [Versão *on-line*](https://github.com/cacilhas/vortaro)
 
 ## Autor
